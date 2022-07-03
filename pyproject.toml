@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "rustlambda"
+version = "0.1.0"
+description = "CDK constructs for Lambda-based applications implemented in Rust"
+authors = ["David Steiner <david_j_steiner@yahoo.co.nz>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+aws-cdk-lib = "^2.30.0"
+cargo-lambda = "^0.8.3"
+toml = "^0.10.2"
+ziglang = "^0.9.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
