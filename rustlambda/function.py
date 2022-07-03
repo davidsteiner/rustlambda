@@ -7,7 +7,7 @@ from aws_cdk.aws_lambda import Architecture, Code, Function, Runtime
 from constructs import Construct
 
 
-class BuildException(Exception):
+class BuildError(Exception):
     pass
 
 
@@ -42,11 +42,19 @@ class RustFunction(Function):
 
     def _compile(self, project_dir: str):
         if project_dir not in self._already_compiled:
-            command = ["cargo", "lambda", "build", "--release", "--arm64", "--output-format", "zip"]
+            command = [
+                "cargo",
+                "lambda",
+                "build",
+                "--release",
+                "--arm64",
+                "--output-format",
+                "zip",
+            ]
             try:
                 subprocess.run(command, capture_output=True, text=True, check=True)
             except subprocess.CalledProcessError as err:
-                raise BuildException(f"failed to compile {project_dir}: {err.stderr}")
+                raise BuildError(f"failed to compile {project_dir}: {err.stderr}")
 
             self.__class__._already_compiled.add(project_dir)
             sys.stdout.write(f"Compiled cargo project in {project_dir}")

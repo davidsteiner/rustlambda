@@ -1,1 +1,1 @@
-from .function import RustFunction
+from .function import BuildError, RustFunction
